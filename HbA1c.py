@@ -27,7 +27,7 @@ def calculate_hba1c(average_glucose):
 # Streamlit app layout
 st.set_page_config(page_title="Blood Glucose Assessment Tool", layout="wide")
 st.title("🩸 Blood Glucose Assessment Tool")
-st.markdown("<h5 style='color:blue;'>Developer: mak.310 </h5>", unsafe_allow_html=True)  # Replace with your name
+st.markdown("<h5 style='color:blue;'>Developer: mak3.1 </h5>", unsafe_allow_html=True)  # Replace with your name
 st.markdown("<h5 style='color:purple;'>Tribute to My Daughter: Rameen Khan</h5>", unsafe_allow_html=True)  # Replace with your daughter's name
 
 # Styling for the sidebar
