@@ -1,15 +1,7 @@
 import streamlit as st
 
 def assess_blood_glucose(glucose_level):
-    """
-    Assess the blood glucose level and categorize it as normal, hyperglycemia, or hypoglycemia.
-    
-    Parameters:
-    glucose_level (float): The blood glucose level in mg/dL.
-    
-    Returns:
-    str: Assessment result and recommendations.
-    """
+    """Assess the blood glucose level and categorize it as normal, hyperglycemia, or hypoglycemia."""
     if glucose_level < 70:
         return ("**Hypoglycemia**: Your blood glucose level is low. "
                 "Eat or drink something with sugar immediately (e.g., juice, candy). "
@@ -28,20 +20,21 @@ def assess_blood_glucose(glucose_level):
                 "Consult a healthcare professional about the need for insulin or other emergency medications.")
 
 def calculate_hba1c(average_glucose):
-    """
-    Calculate HbA1c based on the average blood glucose level.
-    
-    Parameters:
-    average_glucose (float): The average blood glucose level in mg/dL.
-    
-    Returns:
-    float: Estimated HbA1c percentage.
-    """
+    """Calculate HbA1c based on the average blood glucose level."""
     hba1c = (average_glucose + 46.7) / 28.7
     return hba1c
 
 # Streamlit app layout
 st.title("Blood Glucose Assessment Tool")
+st.markdown("### Developer: Your Name Here")  # Replace with your name
+st.markdown("### Tribute to My Daughter: [Daughter's Name]")  # Replace with your daughter's name
+
+# Adding sections for Blood and Injections
+st.markdown("#### 🩸 Blood Management")
+st.markdown("Keep track of your blood glucose levels and maintain a balanced diet for optimal health.")
+
+st.markdown("#### 💉 Injection Management")
+st.markdown("If you require insulin injections, ensure you follow the recommended guidelines and consult your healthcare provider.")
 
 user_name = st.text_input("What is your name?")
 age = st.number_input("Please enter your age:", min_value=0, max_value=120)
