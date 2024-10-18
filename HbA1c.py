@@ -51,9 +51,9 @@ if st.button("Assess Blood Glucose"):
     
     if st.button("Calculate HbA1c"):
         hba1c_result = calculate_hba1c(average_glucose)
-        
+        if hba1c_result is not None:
             st.write(f"Your estimated HbA1c is {hba1c_result:.2f}%.")
-        
+        else:
             st.write("Please enter a valid average glucose level.")
 
 st.write(f"Thank you for using the blood glucose and HbA1c assessment tool, {user_name}. Stay healthy!")
