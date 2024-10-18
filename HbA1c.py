@@ -21,8 +21,10 @@ def assess_blood_glucose(glucose_level):
 
 def calculate_hba1c(average_glucose):
     """Calculate HbA1c based on the average blood glucose level."""
-    hba1c = (average_glucose + 46.7) / 28.7
-    return hba1c
+    if average_glucose is not None:
+        hba1c = (average_glucose + 46.7) / 28.7
+        return hba1c
+    return None
 
 # Streamlit app layout
 st.title("Blood Glucose Assessment Tool")
@@ -36,9 +38,9 @@ st.markdown("Keep track of your blood glucose levels and maintain a balanced die
 st.markdown("#### 💉 Injection Management")
 st.markdown("If you require insulin injections, ensure you follow the recommended guidelines and consult your healthcare provider.")
 
+# User Inputs
 user_name = st.text_input("What is your name?")
 age = st.number_input("Please enter your age:", min_value=0, max_value=120)
-
 glucose_input = st.number_input("Enter your current blood glucose level (mg/dL):", min_value=0.0)
 
 if st.button("Assess Blood Glucose"):
@@ -49,7 +51,9 @@ if st.button("Assess Blood Glucose"):
     
     if st.button("Calculate HbA1c"):
         hba1c_result = calculate_hba1c(average_glucose)
-        st.write(f"Your estimated HbA1c is {hba1c_result:.2f}%.")
-        st.write(f"Age: {age} years")
+        if hba1c_result is not None:
+            st.write(f"Your estimated HbA1c is {hba1c_result:.2f}%.")
+        else:
+            st.write("Please enter a valid average glucose level.")
 
 st.write(f"Thank you for using the blood glucose and HbA1c assessment tool, {user_name}. Stay healthy!")
