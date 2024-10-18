@@ -26,8 +26,8 @@ def calculate_hba1c(average_glucose):
 
 # Streamlit app layout
 st.title("Blood Glucose Assessment Tool")
-st.markdown("### Developer: Your Name Here")  # Replace with your name
-st.markdown("### Tribute to My Daughter: [Daughter's Name]")  # Replace with your daughter's name
+st.markdown("### Developer: mak.10")  # Replace with your name
+st.markdown("### Tribute to My Daughter: Rameen Khan")  # Replace with your daughter's name
 
 # User Input
 user_name = st.text_input("What is your name?")
