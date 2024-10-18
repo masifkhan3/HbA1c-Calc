@@ -1,7 +1,12 @@
-import streamlit as st
+# Install ipywidgets if it's not already installed
+!pip install ipywidgets
+
+import numpy as np
+import ipywidgets as widgets
+from IPython.display import display
 
 def assess_blood_glucose(glucose_level):
-    """Assess the blood glucose level and categorize it as normal, hyperglycemia, or hypoglycemia."""
+    """Assess the blood glucose level and categorize it."""
     if glucose_level < 70:
         return ("**Hypoglycemia**: Your blood glucose level is low. "
                 "Eat or drink something with sugar immediately (e.g., juice, candy). "
@@ -26,34 +31,35 @@ def calculate_hba1c(average_glucose):
         return hba1c
     return None
 
-# Streamlit app layout
-st.title("Blood Glucose Assessment Tool")
-st.markdown("### Developer: Your Name Here")  # Replace with your name
-st.markdown("### Tribute to My Daughter: [Daughter's Name]")  # Replace with your daughter's name
-
-# Adding sections for Blood and Injections
-st.markdown("#### 🩸 Blood Management")
-st.markdown("Keep track of your blood glucose levels and maintain a balanced diet for optimal health.")
-
-st.markdown("#### 💉 Injection Management")
-st.markdown("If you require insulin injections, ensure you follow the recommended guidelines and consult your healthcare provider.")
-
 # User Inputs
-user_name = st.text_input("What is your name?")
-age = st.number_input("Please enter your age:", min_value=0, max_value=120)
-glucose_input = st.number_input("Enter your current blood glucose level (mg/dL):", min_value=0.0)
+user_name = widgets.Text(value='', placeholder='Enter your name', description='Name:')
+age = widgets.IntSlider(value=30, min=0, max=120, step=1, description='Age:')
+glucose_input = widgets.FloatText(value=100.0, description='Current Glucose (mg/dL):')
 
-if st.button("Assess Blood Glucose"):
-    assessment = assess_blood_glucose(glucose_input)
-    st.write(assessment)
+# Average Glucose Input
+average_glucose = widgets.FloatText(value=100.0, description='Average Glucose (mg/dL):')
 
-    average_glucose = st.number_input("Enter your average blood glucose level (mg/dL) to calculate HbA1c:", min_value=0.0)
-    
-    if st.button("Calculate HbA1c"):
-        hba1c_result = calculate_hba1c(average_glucose)
-        if hba1c_result is not None:
-            st.write(f"Your estimated HbA1c is {hba1c_result:.2f}%.")
-        else:
-            st.write("Please enter a valid average glucose level.")
+# Function to handle button click for assessment
+def on_assess_click(b):
+    assessment = assess_blood_glucose(glucose_input.value)
+    print(f"\nAssessment for {user_name.value} (Age: {age.value}):")
+    print(assessment)
 
-st.write(f"Thank you for using the blood glucose and HbA1c assessment tool, {user_name}. Stay healthy!")
+# Function to handle button click for HbA1c calculation
+def on_hba1c_click(b):
+    hba1c_result = calculate_hba1c(average_glucose.value)
+    if hba1c_result is not None:
+        print(f"\nEstimated HbA1c for {user_name.value} (Age: {age.value}): {hba1c_result:.2f}%")
+    else:
+        print("Please enter a valid average glucose level.")
+
+# Create buttons
+assess_button = widgets.Button(description="Assess Blood Glucose")
+hba1c_button = widgets.Button(description="Calculate HbA1c")
+
+# Set button click event handlers
+assess_button.on_click(on_assess_click)
+hba1c_button.on_click(on_hba1c_click)
+
+# Display all widgets
+display(user_name, age, glucose_input, assess_button, average_glucose, hba1c_button)
