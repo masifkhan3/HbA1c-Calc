@@ -25,27 +25,40 @@ def calculate_hba1c(average_glucose):
     return hba1c
 
 # Streamlit app layout
-st.title("Blood Glucose Assessment Tool")
-st.markdown("### Developer: mak.10")  # Replace with your name
-st.markdown("### Tribute to My Daughter: Rameen Khan")  # Replace with your daughter's name
+st.set_page_config(page_title="Blood Glucose Assessment Tool", layout="wide")
+st.title("🩸 Blood Glucose Assessment Tool")
+st.markdown("<h5 style='color:blue;'>Developer: Your Name Here</h5>", unsafe_allow_html=True)  # Replace with your name
+st.markdown("<h5 style='color:purple;'>Tribute to My Daughter: [Daughter's Name]</h5>", unsafe_allow_html=True)  # Replace with your daughter's name
+
+# Styling for the sidebar
+st.sidebar.title("User Input")
+st.sidebar.markdown("Please provide your details below:")
 
 # User Input
-user_name = st.text_input("What is your name?")
-age = st.number_input("Please enter your age:", min_value=0, max_value=120)
+user_name = st.sidebar.text_input("What is your name?")
+age = st.sidebar.number_input("Please enter your age:", min_value=0, max_value=120)
 
 # Input for blood glucose level
-glucose_input = st.number_input("Enter your current blood glucose level (mg/dL):", min_value=0.0)
+glucose_input = st.sidebar.number_input("Enter your current blood glucose level (mg/dL):", min_value=0.0)
 
-if st.button("Assess Blood Glucose"):
+if st.sidebar.button("Assess Blood Glucose"):
     assessment = assess_blood_glucose(glucose_input)
-    st.write(assessment)
+    st.markdown(f"<div style='background-color: lightgreen; padding: 10px; border-radius: 5px;'>"
+                f"<h5>{assessment}</h5></div>", unsafe_allow_html=True)
 
     # Input for average blood glucose level
-    average_glucose = st.number_input("Enter your average blood glucose level (mg/dL) to calculate HbA1c:", min_value=0.0)
+    average_glucose = st.sidebar.number_input("Enter your average blood glucose level (mg/dL) to calculate HbA1c:", min_value=0.0)
     
-    if st.button("Calculate HbA1c"):
+    if st.sidebar.button("Calculate HbA1c"):
         hba1c_result = calculate_hba1c(average_glucose)
-        st.write(f"Your estimated HbA1c is {hba1c_result:.2f}%.")
-        st.write(f"Age: {age} years")
+        st.markdown(f"<div style='background-color: lightblue; padding: 10px; border-radius: 5px;'>"
+                    f"<h5>Your estimated HbA1c is **{hba1c_result:.2f}%**.</h5>"
+                    f"<h5>Age: {age} years</h5></div>", unsafe_allow_html=True)
 
-st.write(f"Thank you for using the blood glucose and HbA1c assessment tool, {user_name}. Stay healthy!")
+# Final message
+if user_name:
+    st.markdown(f"<h5 style='color:green;'>Thank you for using the blood glucose and HbA1c assessment tool, {user_name}. Stay healthy!</h5>", unsafe_allow_html=True)
+
+# Optional: Footer
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<footer style='text-align: center; color: gray;'>© 2024 Your Name Here</footer>", unsafe_allow_html=True)
