@@ -27,8 +27,8 @@ def calculate_hba1c(average_glucose):
 # Streamlit app layout
 st.set_page_config(page_title="Blood Glucose Assessment Tool", layout="wide")
 st.title("🩸 Blood Glucose Assessment Tool")
-st.markdown("<h5 style='color:blue;'>Developer: mak3.1 </h5>", unsafe_allow_html=True)  # Replace with your name
-st.markdown("<h5 style='color:purple;'>Tribute to My Daughter: Rameen Khan</h5>", unsafe_allow_html=True)  # Replace with your daughter's name
+st.markdown("<h5 style='color:blue;'>Developer: mak3.1 </h5>", unsafe_allow_html=True)
+st.markdown("<h5 style='color:purple;'>Tribute to My Daughter: Rameen Khan</h5>", unsafe_allow_html=True)
 
 # Styling for the sidebar
 st.sidebar.title("User Input")
@@ -41,6 +41,7 @@ age = st.sidebar.number_input("Please enter your age:", min_value=0, max_value=1
 # Input for blood glucose level
 glucose_input = st.sidebar.number_input("Enter your current blood glucose level (mg/dL):", min_value=0.0)
 
+# Assess Blood Glucose
 if st.sidebar.button("Assess Blood Glucose"):
     assessment = assess_blood_glucose(glucose_input)
     st.markdown(f"<div style='background-color: lightgreen; padding: 10px; border-radius: 5px;'>"
@@ -49,6 +50,7 @@ if st.sidebar.button("Assess Blood Glucose"):
     # Input for average blood glucose level
     average_glucose = st.sidebar.number_input("Enter your average blood glucose level (mg/dL) to calculate HbA1c:", min_value=0.0)
     
+    # Calculate HbA1c after assessing glucose level
     if st.sidebar.button("Calculate HbA1c"):
         hba1c_result = calculate_hba1c(average_glucose)
         st.markdown(f"<div style='background-color: lightblue; padding: 10px; border-radius: 5px;'>"
